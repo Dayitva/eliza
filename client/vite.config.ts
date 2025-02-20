@@ -35,5 +35,8 @@ export default defineConfig(({ mode }) => {
                 "@": "/src",
             },
         },
+        server: {
+            allowedHosts: ["3cc5-106-219-163-202.ngrok-free.app"], // Add your ngrok host here
+        },
     };
 });

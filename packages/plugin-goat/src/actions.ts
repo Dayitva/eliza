@@ -2,6 +2,7 @@ import { getOnChainTools } from "@goat-sdk/adapter-vercel-ai";
 import { MODE, USDC, erc20 } from "@goat-sdk/plugin-erc20";
 import { kim } from "@goat-sdk/plugin-kim";
 import { sendETH } from "@goat-sdk/wallet-evm";
+import { superfluid } from "@goat-sdk/plugin-superfluid";
 import type { WalletClientBase } from "@goat-sdk/core";
 
 import {
@@ -23,13 +24,95 @@ export async function getOnChainActions(wallet: WalletClientBase) {
             validate: async () => true,
             examples: [],
         },
-        // 1. Add your actions here
+        {
+            name: "GET_MEMBER_UNITS",
+            description: "Get the units for a member in a Superfluid Distribution Pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_MEMBER_UNITS",
+            description: "Get the units for a member in a Superfluid Distribution Pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_MEMBER_FLOW_RATE",
+            description: "Get the flow rate of a member in a Superfluid Pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_TOTAL_FLOW_RATE",
+            description: "Get the total flow rate of a Superfluid Pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_TOTAL_UNITS",
+            description: "Get the total units of a Superfluid pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_TOTAL_CONNECTED_UNITS",
+            description: "Get the total number of units of connected members of a Superfluid pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_TOTAL_DISCONNECTED_UNITS",
+            description: "Get the total number of units of disconnected members of a Superfluid pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_TOTAL_CONNECTED_FLOW_RATE",
+            description: "Get the flow rate of the connected members of a Superfluid pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_TOTAL_DISCONNECTED_FLOW_RATE",
+            description: "Get the flow rate of the disconnected members of a Superfluid pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_TOTAL_AMOUNT_RECEIVED_BY_MEMBER",
+            description: "Get the total amount received by a member in a Superfluid pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        {
+            name: "GET_CLAIMABLE_NOW",
+            description: "Get the claimable balance for a member at the current time in a Superfluid pool",
+            similes: [],
+            validate: async () => true,
+            examples: [],
+        },
+        
     ];
 
     const tools = await getOnChainTools({
         wallet: wallet,
         // 2. Configure the plugins you need to perform those actions
-        plugins: [sendETH(), erc20({ tokens: [USDC, MODE] }), kim()],
+        plugins: [
+            sendETH(), 
+            erc20({ tokens: [USDC, MODE] }), 
+            kim(), 
+            superfluid(),
+        ],
     });
 
     // 3. Let GOAT handle all the actions
@@ -67,9 +150,9 @@ function getActionHandler(
                 tools,
                 maxSteps: 10,
                 // Uncomment to see the log each tool call when debugging
-                // onStepFinish: (step) => {
-                //     console.log(step.toolResults);
-                // },
+                onStepFinish: (step) => {
+                    console.log(step.toolResults);
+                },
                 modelClass: ModelClass.LARGE,
             });
 
